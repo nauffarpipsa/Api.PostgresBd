@@ -1,0 +1,15 @@
+.git
+.gitignore
+**/bin
+**/obj
+**/*.user
+**/*.csproj.user
+*.pfx
+*.cer
+*.key
+*.pem
+*.secret
+.env
+appsettings.*.local.json
+secrets/
+node_modules/

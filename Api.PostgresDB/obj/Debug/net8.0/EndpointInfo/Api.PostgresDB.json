@@ -1,0 +1,1866 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Api.PostgresDB",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Amortizaciones/Post": {
+      "post": {
+        "tags": [
+          "Amortizaciones"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Maestro_ArmortizacionesDto"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Maestro_ArmortizacionesDto"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Maestro_ArmortizacionesDto"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Amortizaciones/GeAll": {
+      "get": {
+        "tags": [
+          "Amortizaciones"
+        ],
+        "parameters": [
+          {
+            "name": "pestamo_number",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "valid",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "paid",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_AmortizacionesIEnumerableResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_AmortizacionesIEnumerableResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_AmortizacionesIEnumerableResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/CatalogoCredito/GetAll": {
+      "get": {
+        "tags": [
+          "CatalogoCredito"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatalogoCreditoDtoResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatalogoCreditoDtoResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatalogoCreditoDtoResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Condiciones/Add": {
+      "post": {
+        "tags": [
+          "Condiciones"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CondicionesDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CondicionesDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CondicionesDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CondicionesResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CondicionesResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CondicionesResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Condiciones/GetAll": {
+      "get": {
+        "tags": [
+          "Condiciones"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CondicionesDTOIEnumerableResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CondicionesDTOIEnumerableResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CondicionesDTOIEnumerableResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/HistoryRates/GetForID": {
+      "get": {
+        "tags": [
+          "HistoryRates"
+        ],
+        "parameters": [
+          {
+            "name": "PrestamoID",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_Historial_TasasIEnumerableResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_Historial_TasasIEnumerableResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_Historial_TasasIEnumerableResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/HistoryRates/GetHistoryRate": {
+      "get": {
+        "tags": [
+          "HistoryRates"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_Historial_TasasIEnumerableResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_Historial_TasasIEnumerableResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_Historial_TasasIEnumerableResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/HistoryRates/Addhistoryrate": {
+      "post": {
+        "tags": [
+          "HistoryRates"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SAP_Maestro_Historial_Tasas"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SAP_Maestro_Historial_Tasas"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SAP_Maestro_Historial_Tasas"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_Historial_TasasResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_Historial_TasasResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_Historial_TasasResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Maestro_Cuota_Tipos/GetAll": {
+      "get": {
+        "tags": [
+          "Maestro_Cuota_Tipos"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Cuota_TiposIEnumerableResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Cuota_TiposIEnumerableResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Cuota_TiposIEnumerableResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Maestro_Cuota_Tipos/Add": {
+      "post": {
+        "tags": [
+          "Maestro_Cuota_Tipos"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maestro_Cuota_TiposDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maestro_Cuota_TiposDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maestro_Cuota_TiposDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Cuota_TiposResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Cuota_TiposResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Cuota_TiposResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Maestro_Cuota_Tipos/Update/{id}": {
+      "put": {
+        "tags": [
+          "Maestro_Cuota_Tipos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maestro_Cuota_TiposDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maestro_Cuota_TiposDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maestro_Cuota_TiposDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Cuota_TiposResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Cuota_TiposResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Cuota_TiposResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Maestro_Lineas_Credito/GetAll": {
+      "get": {
+        "tags": [
+          "Maestro_Lineas_Credito"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Lineas_CreditoDtoIEnumerableResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Lineas_CreditoDtoIEnumerableResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Lineas_CreditoDtoIEnumerableResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Maestro_Lineas_Credito/Add": {
+      "post": {
+        "tags": [
+          "Maestro_Lineas_Credito"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maestro_Lineas_CreditoDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maestro_Lineas_CreditoDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maestro_Lineas_CreditoDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Lineas_CreditoResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Lineas_CreditoResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Lineas_CreditoResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Maestro_Lineas_Credito/Update/{ID}": {
+      "put": {
+        "tags": [
+          "Maestro_Lineas_Credito"
+        ],
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maestro_Lineas_CreditoDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maestro_Lineas_CreditoDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maestro_Lineas_CreditoDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Lineas_CreditoResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Lineas_CreditoResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maestro_Lineas_CreditoResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/SAP_Maestro_Bancos/AddBank": {
+      "post": {
+        "tags": [
+          "SAP_Maestro_Bancos"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SAP_Maestro_BancosDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SAP_Maestro_BancosDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SAP_Maestro_BancosDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_BancosResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_BancosResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_BancosResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/SAP_Maestro_Bancos/GetAll": {
+      "get": {
+        "tags": [
+          "SAP_Maestro_Bancos"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_BancosDtoIEnumerableResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_BancosDtoIEnumerableResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_BancosDtoIEnumerableResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/SAP_Maestro_Bancos/UpdateBank/{id}": {
+      "put": {
+        "tags": [
+          "SAP_Maestro_Bancos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SAP_Maestro_BancosDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SAP_Maestro_BancosDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SAP_Maestro_BancosDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_BancosResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_BancosResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SAP_Maestro_BancosResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/SAPMaestroPrestamos/GetALl": {
+      "get": {
+        "tags": [
+          "SAPMaestroPrestamos"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrestamoDTOIEnumerableResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrestamoDTOIEnumerableResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrestamoDTOIEnumerableResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/SAPMaestroPrestamos/Update": {
+      "put": {
+        "tags": [
+          "SAPMaestroPrestamos"
+        ],
+        "parameters": [
+          {
+            "name": "prestamo_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SAPMaestroPrestamosDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SAPMaestroPrestamosDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SAPMaestroPrestamosDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/SapMaestroPurchaseOrders/GetPurchase": {
+      "get": {
+        "tags": [
+          "SapMaestroPurchaseOrders"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PurchaseOrderDtoIEnumerableResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PurchaseOrderDtoIEnumerableResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PurchaseOrderDtoIEnumerableResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/SapMaestroPurchaseOrders/GetPaged": {
+      "get": {
+        "tags": [
+          "SapMaestroPurchaseOrders"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PurchaseOrderDtoPaginationDTOResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PurchaseOrderDtoPaginationDTOResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PurchaseOrderDtoPaginationDTOResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CatalogoCreditoDto": {
+        "type": "object",
+        "properties": {
+          "bancos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SAP_Maestro_BancosDTo"
+            },
+            "nullable": true
+          },
+          "lineasCredito": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Maestro_Lineas_CreditoDTo"
+            },
+            "nullable": true
+          },
+          "tiposCuota": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Maestro_Cuota_TiposDTo"
+            },
+            "nullable": true
+          },
+          "condiciones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CondicionesDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CatalogoCreditoDtoResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CatalogoCreditoDto"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Condiciones": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "f_creacion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CondicionesDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CondicionesDTOIEnumerableResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CondicionesDTO"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CondicionesDto": {
+        "type": "object",
+        "properties": {
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CondicionesResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Condiciones"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_Amortizaciones": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prestamo_Numer": {
+            "type": "string",
+            "nullable": true
+          },
+          "quota_Numer": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "days": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "capital": {
+            "type": "number",
+            "format": "double"
+          },
+          "interest": {
+            "type": "number",
+            "format": "double"
+          },
+          "total_Quota": {
+            "type": "number",
+            "format": "double"
+          },
+          "capital_Balance": {
+            "type": "number",
+            "format": "double"
+          },
+          "rate": {
+            "type": "number",
+            "format": "double"
+          },
+          "tea": {
+            "type": "number",
+            "format": "double"
+          },
+          "valid": {
+            "type": "boolean"
+          },
+          "paid": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_AmortizacionesIEnumerableResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Maestro_Amortizaciones"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_ArmortizacionesDto": {
+        "type": "object",
+        "properties": {
+          "prestamo_Numer": {
+            "type": "string",
+            "nullable": true
+          },
+          "quota_Numer": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "days": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "capital": {
+            "type": "number",
+            "format": "double"
+          },
+          "interest": {
+            "type": "number",
+            "format": "double"
+          },
+          "total_Quota": {
+            "type": "number",
+            "format": "double"
+          },
+          "capital_Balance": {
+            "type": "number",
+            "format": "double"
+          },
+          "rate": {
+            "type": "number",
+            "format": "double"
+          },
+          "tea": {
+            "type": "number",
+            "format": "double"
+          },
+          "valid": {
+            "type": "boolean"
+          },
+          "paid": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_Cuota_Tipos": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "creadate": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_Cuota_TiposDTo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_Cuota_TiposDto": {
+        "required": [
+          "description",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_Cuota_TiposIEnumerableResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Maestro_Cuota_Tipos"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_Cuota_TiposResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Maestro_Cuota_Tipos"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_Lineas_Credito": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "line_Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "credito": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_Lineas_CreditoDTO": {
+        "type": "object",
+        "properties": {
+          "line_Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "credito": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_Lineas_CreditoDTo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "line_Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "credito": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_Lineas_CreditoDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "line_Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "bank_Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "credito": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_Lineas_CreditoDtoIEnumerableResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Maestro_Lineas_CreditoDto"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Maestro_Lineas_CreditoResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Maestro_Lineas_Credito"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PrestamoDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "company": {
+            "type": "string",
+            "nullable": true
+          },
+          "prestamo_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "factura_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "c_proveedor": {
+            "type": "string",
+            "nullable": true
+          },
+          "n_proveedor": {
+            "type": "string",
+            "nullable": true
+          },
+          "f_creacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "f_invoice": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "f_modificacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "f_inicial": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "f_final": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "prestamo_type_id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "prestamo_type_text": {
+            "type": "string",
+            "nullable": true
+          },
+          "tasa": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "dia_pago": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "meses_gracia": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "plazo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "commets": {
+            "type": "string",
+            "nullable": true
+          },
+          "banco_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "liniea_credito_desciption": {
+            "type": "string",
+            "nullable": true
+          },
+          "cuata_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "condicion_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "monto_neto": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "monto_bruto": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PrestamoDTOIEnumerableResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PrestamoDTO"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PurchaseOrderDetailDto": {
+        "type": "object",
+        "properties": {
+          "productCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "productDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "productCategory": {
+            "type": "string",
+            "nullable": true
+          },
+          "productNetPrice": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "quantityRequested": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "quantityDelivered": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "balance": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "containerNumber": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PurchaseOrderDto": {
+        "type": "object",
+        "properties": {
+          "orderNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "searatesStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdByUser": {
+            "type": "string",
+            "nullable": true
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "contractNumberReference": {
+            "type": "string",
+            "nullable": true
+          },
+          "supplierCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "supplierName": {
+            "type": "string",
+            "nullable": true
+          },
+          "etaInitial": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "masterBLNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "locationText": {
+            "type": "string",
+            "nullable": true
+          },
+          "shippingCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PurchaseOrderDetailDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PurchaseOrderDtoIEnumerableResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PurchaseOrderDto"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PurchaseOrderDtoPaginationDTO": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PurchaseOrderDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PurchaseOrderDtoPaginationDTOResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/PurchaseOrderDtoPaginationDTO"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SAPMaestroPrestamosDto": {
+        "type": "object",
+        "properties": {
+          "tasa": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "dia_pago": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "meses_gracia": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "plazo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "commets": {
+            "type": "string",
+            "nullable": true
+          },
+          "bank_id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "creditline_id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "cuotatipo_id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "condicion_id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SAP_Maestro_Bancos": {
+        "type": "object",
+        "properties": {
+          "bankID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "bank_Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "fechaCreacion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SAP_Maestro_BancosDTO": {
+        "type": "object",
+        "properties": {
+          "bank_Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SAP_Maestro_BancosDTo": {
+        "type": "object",
+        "properties": {
+          "bankID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "bank_Name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SAP_Maestro_BancosDto": {
+        "type": "object",
+        "properties": {
+          "bankID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "bank_Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SAP_Maestro_BancosDtoIEnumerableResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SAP_Maestro_BancosDto"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SAP_Maestro_BancosResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/SAP_Maestro_Bancos"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SAP_Maestro_Historial_Tasas": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prestamoID": {
+            "type": "string",
+            "nullable": true
+          },
+          "tasaH": {
+            "type": "number",
+            "format": "double"
+          },
+          "fechaCreacion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SAP_Maestro_Historial_TasasIEnumerableResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SAP_Maestro_Historial_Tasas"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SAP_Maestro_Historial_TasasResponseDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/SAP_Maestro_Historial_Tasas"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  apipostgresdb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: apipostgresdb
+    ports:
+      - "8030:8030"   # host:container
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: "http://+:8030"
+      ConnectionStrings__Postgres: "Host=192.168.10.97;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
+    restart: unless-stopped
