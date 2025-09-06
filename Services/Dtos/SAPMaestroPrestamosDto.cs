@@ -39,14 +39,19 @@ namespace Services.Dtos
         public int? meses_gracia { get; set; }
         public int? plazo { get; set; }
         public string? commets { get; set; }
+        public int? bank_id { get; set; }
         [JsonPropertyName("banco_name")]
         public string? bank_name { get; set; }
         [JsonPropertyName("liniea_credito_desciption")]
+        public int? creditline_id { get; set; }
 
         public string? creditline_name { get; set; }
-        [JsonPropertyName("cuata_name")]
+        public int? cuotatipo_id { get; set; }
 
+        [JsonPropertyName("cuata_name")]
+      
         public string? cuata_name{ get; set; }
+        public int? condicion_id { get; set; }
         [JsonPropertyName("condicion_name")]
         public string? condicion_name { get; set; }
 

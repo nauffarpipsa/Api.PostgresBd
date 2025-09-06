@@ -1,8 +1,9 @@
- -> 2025-09-05-14.01.50.119-devenv-28924.tsv
-Copernicus build  codeline  from  started on Microsoft Windows NT 10.0.26100.0 64 bit at 5/9/2025 14:01:51
+ExecuteSynchronously task continuation option has been passed but it is not supported by VS Task Library hence it is ignored.
+Copernicus build  codeline  from  started on Microsoft Windows NT 10.0.26100.0 64 bit at 5/9/2025 17:50:12
 Entering constructor for: SAP.Copernicus.CopernicusPackage
 Entering constructor for: SAP.Copernicus.Administration.CopernicusAdministrationPackage
 Entering Initialize() of: SAP.Copernicus.Administration.CopernicusAdministrationPackage
+ -> 2025-09-05-17.50.13.197-devenv-34100.tsv
 Entering constructor for: SAP.Copernicus.OneOff.CopernicusOneOffPackage
 Entering Initialize() of: SAP.Copernicus.OneOff.CopernicusOneOffPackage
 Entering constructor for: DevExpress.ExpressApp.Design.DynamicPackage.VSPkg
@@ -11,29 +12,4 @@ Entering Initialize() of: SAP.Copernicus.Extension.CopernicusExtensionPackage
 Entering SAP.Copernicus.Extension.ProcessExtensionScenario.ExtScenEditorPane constructor
 Entering SAP.Copernicus.Extension.NodeExtensionScenario.NodeExtScenEditorPane constructor
 Entering SAP.Copernicus.Extension.CustomerObjectReferences.CustomerObjectReferencesEditorPane constructor
-ExecuteSynchronously task continuation option has been passed but it is not supported by VS Task Library hence it is ignored.
-ExecuteSynchronously task continuation option has been passed but it is not supported by VS Task Library hence it is ignored.
-ExecuteSynchronously task continuation option has been passed but it is not supported by VS Task Library hence it is ignored.
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-Exception : Unable to cast object of type 'Microsoft.VisualStudio.ProjectSystem.VS.Implementation.Package.Automation.OAProject' to type 'SAP.CopernicusProjectView.OACopernicusProject'.
-Exception : Invalid clipboard format (Exception from HRESULT: 0x8004006A (DV_E_CLIPFORMAT))
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-given range is not current
-stopped at 5/9/2025 17:43:09
+stopped at 5/9/2025 18:01:52

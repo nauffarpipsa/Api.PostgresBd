@@ -66,16 +66,18 @@ namespace Services.Implementation
                     meses_gracia = p.meses_gracia,
                     plazo = p.plazo,
                     commets = p.commets,
-
-                    // NOMBRES desde navegaciones (EF genera LEFT JOIN)
+                    bank_id = p.bank_id,
                     bank_name = p.Bank != null ? p.Bank.Bank_Name : null,
+                    creditline_id = p.creditline_id,
                     creditline_name = 
                        (p.CreditLine != null && !string.IsNullOrEmpty(p.CreditLine.Line_Description))
                        ?((p.Bank != null && !string.IsNullOrEmpty(p.Bank.Bank_Name))
                             ? p.CreditLine.Line_Description + "/" + p.Bank.Bank_Name 
                             : p.CreditLine.Line_Description)
                            : null,
+                    cuotatipo_id = p.cuotatipo_id,
                     cuata_name = p.CuotaTipo != null ? p.CuotaTipo.Description : null,
+                    condicion_id = p.condicion_id,
                     condicion_name = p.condiciones != null ? p.condiciones.descripcion : null,
 
                     monto_neto = p.monto_neto,
