@@ -1,9 +1,7 @@
-ExecuteSynchronously task continuation option has been passed but it is not supported by VS Task Library hence it is ignored.
-Copernicus build  codeline  from  started on Microsoft Windows NT 10.0.26100.0 64 bit at 5/9/2025 17:50:12
+Copernicus build  codeline  from  started on Microsoft Windows NT 10.0.26100.0 64 bit at 8/9/2025 08:09:15
 Entering constructor for: SAP.Copernicus.CopernicusPackage
 Entering constructor for: SAP.Copernicus.Administration.CopernicusAdministrationPackage
 Entering Initialize() of: SAP.Copernicus.Administration.CopernicusAdministrationPackage
- -> 2025-09-05-17.50.13.197-devenv-34100.tsv
 Entering constructor for: SAP.Copernicus.OneOff.CopernicusOneOffPackage
 Entering Initialize() of: SAP.Copernicus.OneOff.CopernicusOneOffPackage
 Entering constructor for: DevExpress.ExpressApp.Design.DynamicPackage.VSPkg
@@ -12,4 +10,4 @@ Entering Initialize() of: SAP.Copernicus.Extension.CopernicusExtensionPackage
 Entering SAP.Copernicus.Extension.ProcessExtensionScenario.ExtScenEditorPane constructor
 Entering SAP.Copernicus.Extension.NodeExtensionScenario.NodeExtScenEditorPane constructor
 Entering SAP.Copernicus.Extension.CustomerObjectReferences.CustomerObjectReferencesEditorPane constructor
-stopped at 5/9/2025 18:01:52
+stopped at 8/9/2025 08:12:58
