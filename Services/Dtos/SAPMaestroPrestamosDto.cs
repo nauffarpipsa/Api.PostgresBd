@@ -42,9 +42,9 @@ namespace Services.Dtos
         public int? bank_id { get; set; }
         [JsonPropertyName("banco_name")]
         public string? bank_name { get; set; }
-        [JsonPropertyName("liniea_credito_desciption")]
-        public int? creditline_id { get; set; }
 
+        public int? creditline_id { get; set; }
+        [JsonPropertyName("liniea_credito_desciption")]
         public string? creditline_name { get; set; }
         public int? cuotatipo_id { get; set; }
 

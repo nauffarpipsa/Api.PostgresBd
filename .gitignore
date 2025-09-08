@@ -1,0 +1,16 @@
+
+# Visual Studio / .NET
+.vs/
+**/bin/
+**/obj/
+Debug/
+Release/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+TestResult*/
+# logs u otros temporales
+CopernicusTrace
+# Evitar el archivo fantasma
+NUL
