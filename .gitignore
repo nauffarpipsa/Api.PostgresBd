@@ -87,10 +87,17 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+bin/
+obj/
+*.pdb
 
 # Visual Studio
 .vs/
 .vscode/
+*.user
+*.suo
+*.cache
+*.log
 
 # Rider
 .idea/
