@@ -62,3 +62,8 @@ ScaffoldingReadMe.txt
 
 # Copilot/AI cache
 CopernicusTrace
+
+
+.env
+.env.*.local
+*.env
