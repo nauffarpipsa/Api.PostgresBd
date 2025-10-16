@@ -1,7 +1,0 @@
-Copernicus build  codeline  from  started on Microsoft Windows NT 10.0.26100.0 64 bit at 8/9/2025 15:06:07
-Entering constructor for: SAP.Copernicus.CopernicusPackage
-Entering constructor for: SAP.Copernicus.Administration.CopernicusAdministrationPackage
-Entering Initialize() of: SAP.Copernicus.Administration.CopernicusAdministrationPackage
-Entering constructor for: SAP.Copernicus.OneOff.CopernicusOneOffPackage
-Entering Initialize() of: SAP.Copernicus.OneOff.CopernicusOneOffPackage
-stopped at 8/9/2025 15:06:09
