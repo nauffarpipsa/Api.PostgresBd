@@ -99,6 +99,13 @@ obj/
 *.cache
 *.log
 
+.env
+.env.*
+*.env
+*.env.local
+NUL
+
+
 # Rider
 .idea/
 
