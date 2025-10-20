@@ -56,44 +56,6 @@ builder.Services.AddCors(options =>
         .AllowAnyMethod();
     });
 });
-
-//builder.Services.AddRateLimiter(options => {
-    
-//    options.RejectionStatusCode = 
-//    StatusCodes.Status429TooManyRequests;
-//    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
-//    {
-//        var ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-
-//        return RateLimitPartition.GetFixedWindowLimiter(
-//            partitionKey: ip, 
-//            factory: _ => new FixedWindowRateLimiterOptions
-//        {   
-//                PermitLimit = 10, //número de solicitudes
-//                Window = TimeSpan.FromSeconds(10), // intervalo de tiempo
-//                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
-//                QueueLimit = 0 // sin cola de espera
-
-
-//            });
-//    });
-
-//    options.AddSlidingWindowLimiter(policyName: "sliding", opt =>
-//    {
-//        opt.PermitLimit = 5;                 
-//        opt.Window = TimeSpan.FromSeconds(10);
-//        opt.SegmentsPerWindow = 10;           
-//        opt.QueueLimit = 0;                  
-//        // opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst; //  con cola de espera cola
-//    });
-
-//    options.OnRejected = async (context, token) =>
-//    {
-//        context.HttpContext.Response.Headers["Retry-After"] = "10s"; // tiempo de espera para reintentar
-//        await context.HttpContext.Response.WriteAsync("Too many requests. Please try again later.", cancellationToken: token);
-//    };
-
-//});
  
 var app = builder.Build();
 

@@ -21,13 +21,13 @@ namespace Api.PostgresDB.Controllers
         {
             var entidades = model.Select(x => new Maestro_Amortizaciones
             {
-                prestamo_Numer = x.prestamo_Numer,
-                quota_Numer = x.quota_Numer,
+                prestamo_number = x.prestamo_number,
+                quota_number = x.quota_number,
                 days = x.days,
                 capital = x.capital,
                 interest = x.interest,
-                total_Quota = x.total_Quota,
-                capital_Balance = x.capital_Balance,
+                total_quota = x.total_quota,
+                capital_balance = x.capital_balance,
                 rate = x.rate,
                 TEA = x.TEA,
                 valid = x.valid,
