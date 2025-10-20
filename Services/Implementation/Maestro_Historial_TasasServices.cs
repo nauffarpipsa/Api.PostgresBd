@@ -11,7 +11,8 @@ namespace Services.Implementation
 
         private readonly IGeneric<SAP_Maestro_Historial_Tasas> _historyRates;
 
-        public Maestro_Historial_TasasServices(IGeneric<SAP_Maestro_Historial_Tasas> historyRates)
+        public Maestro_Historial_TasasServices(
+                IGeneric<SAP_Maestro_Historial_Tasas> historyRates)
         {
             _historyRates = historyRates;
         }
@@ -22,7 +23,6 @@ namespace Services.Implementation
                 historyRates.ID = model.ID;
                 historyRates.PrestamoID = model.PrestamoID;
                 historyRates.TasaH = model.TasaH;
-                historyRates.FechaCreacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             }
             return await _historyRates.Add(historyRates);

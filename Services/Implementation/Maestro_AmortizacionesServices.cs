@@ -34,9 +34,9 @@ namespace Services.Implementation
 
            try
             {
-                var reques =  _amortizacion.Get(x => x.prestamo_Numer == pestamo_number &&  x.valid == valid && x.Paid == paid);
+                var reques =  _amortizacion.Get(x => x.prestamo_number == pestamo_number &&  x.valid == valid && x.Paid == paid);
 
-                respose.Data = reques.Data != null ? reques.Data.ToList().OrderByDescending(x => x.quota_Numer ) : null;
+                respose.Data = reques.Data != null ? reques.Data.ToList().OrderByDescending(x => x.quota_number ) : null;
                 respose.Message = reques.Data?.Count() == 0 ? "Data list empty" : reques.Message;
                 respose.IsCorrect = true;
 
