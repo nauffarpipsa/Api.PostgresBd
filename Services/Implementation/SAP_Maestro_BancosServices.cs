@@ -61,14 +61,10 @@ namespace Services.Implementation
 
                if (!currentResp.IsCorrect || currentResp.Data == null || !currentResp.Data.Any())
                 {
-
-                    
-
                     response.Data = null;
                     response.Message = $"No se encontro ningun registro con este ID {model.BankID}";
                     response.IsCorrect = false;
-                    return await Task.FromResult(response);
-
+                    return await System.Threading.Tasks.Task.FromResult(response);
                 }
                 else
                 {

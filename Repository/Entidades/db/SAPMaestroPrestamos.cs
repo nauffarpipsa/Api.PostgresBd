@@ -32,6 +32,8 @@
         public Condiciones? condiciones { get; set; }
         public decimal? monto_neto { get; set; }
         public decimal? monto_bruto { get; set; }
+        public bool? verified { get; set; }
+        public int? dias_de_desembolso { get; set; }
 
     }
 }
