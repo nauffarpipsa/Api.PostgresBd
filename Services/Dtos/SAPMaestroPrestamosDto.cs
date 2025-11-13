@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Repository.Entidades.Odatas;
+using System.Text.Json.Serialization;
 
 namespace Services.Dtos
 {
@@ -13,9 +14,14 @@ namespace Services.Dtos
         public int? creditline_id { get; set; }
         public int? cuotatipo_id { get; set; }
         public int? condicion_id { get; set; }
-
+        public int? dias_de_desembolso { get; set; }
     }
 
+    public class PrestamosVerifiedDto
+    {
+        
+        public Boolean verified { get; set; }
+    }
 
     public class PrestamoDTO
     {
@@ -42,7 +48,6 @@ namespace Services.Dtos
         public int? bank_id { get; set; }
         [JsonPropertyName("banco_name")]
         public string? bank_name { get; set; }
-
         public int? creditline_id { get; set; }
         [JsonPropertyName("liniea_credito_desciption")]
         public string? creditline_name { get; set; }
@@ -57,6 +62,16 @@ namespace Services.Dtos
 
         public decimal? monto_neto { get; set; }
         public decimal? monto_bruto { get; set; }
+        public int? dias_de_desembolso { get; set; }
+        public Boolean? verified { get; set; }
+
+        //[JsonPropertyName("id_cuenta")]
+        //public string? cbanK_ACCOUNT_ID { get; set; }
+        //[JsonPropertyName("banco")]
+        //public string? CBANK_NAME { get; set; }
+        //[JsonPropertyName("codigo")]
+        //public string? CBANK_NAT_CODE { get; set; }
+       
     };
-    
+
 }
