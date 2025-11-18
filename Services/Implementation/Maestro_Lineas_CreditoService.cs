@@ -31,24 +31,24 @@ namespace Services.Implementation
             
         }
 
-        public async Task<ResponseDTO<IEnumerable<Maestro_Lineas_CreditoDto>>> GetAll()
+        public async Task<ResponseDTO<IEnumerable<Maestro_Lineas_CreditoDto>>> GetAll(int company_id)
         {
             ResponseDTO<IEnumerable<Maestro_Lineas_CreditoDto>> response = new ResponseDTO<IEnumerable<Maestro_Lineas_CreditoDto>>();
 
-            var lineasResp =   _maestro_Lineas_Credito.Get();
-            var bancoResp = _sap_maestro_bancos.Get();
+            var lineasResp =   _maestro_Lineas_Credito.Get(l => l.company_id == company_id);
+            var bancoResp = _sap_maestro_bancos.Get(b => b.company_id == company_id);
 
             var bancos = bancoResp.Data?.ToList() ?? new List<SAP_Maestro_Bancos>();
             var lineas = lineasResp.Data?.ToList() ?? new List<Maestro_Lineas_Credito>();
-            var bancosDict = bancos?.ToDictionary(b => b.BankID, b => b.Bank_Name);
+            var bancosDict = bancos?.ToDictionary(b => b.bank_id, b => b.bank_name);
 
             var lienasDto = lineas?.Select(l => new Maestro_Lineas_CreditoDto
             {
                 ID = l.ID,
-                Line_Description = l.Line_Description,
-                BankID = l.BankID,
-                Bank_Name = bancosDict.TryGetValue(l.BankID, out var name) ? name : null,
-                Credito = l.Credito
+                line_description = l.line_description,
+                bank_id = l.bank_id,
+                bank_name = bancosDict.TryGetValue(l.bank_id, out var name) ? name : null,
+                credito = l.credito
             }).ToList();
 
             response.Data = lienasDto;
@@ -66,26 +66,27 @@ namespace Services.Implementation
             {
                 var currentResp = _maestro_Lineas_Credito.Get(x => x.ID == model.ID);
 
-                if (currentResp.IsCorrect || currentResp.Data ==  null || currentResp.Data.Any()) 
-                { 
-                    response.Data = null;
-                    response.Message = currentResp.Message;
-                    response.IsCorrect = false;
-                    return await System.Threading.Tasks.Task.FromResult(response);
-                }
-                else
+                if (currentResp.Data != null) 
                 {
                     var current = currentResp.Data?.FirstOrDefault();
-                    
-                    current.Line_Description = model.Line_Description;
-                    current.BankID = model.BankID;
-                    current.Credito = model.Credito;
+
+                    current!.company_id = model.company_id;
+                    current.line_description = model.line_description;
+                    current.bank_id = model.bank_id;
+                    current.credito = model.credito;
 
                     var saved = await _maestro_Lineas_Credito.Update(current);
 
                     response.Data = saved.Data != null ? saved.Data : response.Data;
                     response.Message = saved.Message;
                     response.IsCorrect = true;
+                }
+                else
+                {
+                    response.Data = null;
+                    response.Message = currentResp.Message;
+                    response.IsCorrect = false;
+                    return await System.Threading.Tasks.Task.FromResult(response);
                 } 
             }
             catch (Exception ex )

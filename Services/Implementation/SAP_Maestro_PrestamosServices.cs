@@ -74,32 +74,16 @@ namespace Services.Implementation
                     p.monto_bruto,
                     p.verified,
                     p.dias_de_desembolso,
-                    Bank_Name = p.Bank != null ? p.Bank.Bank_Name : null,
-                    Line_Description = p.CreditLine != null ? p.CreditLine.Line_Description : null,
-                    Cuota_Name = p.CuotaTipo != null ? p.CuotaTipo.Description : null,
+                    Bank_Name = p.Bank != null ? p.Bank.bank_name : null,
+                    Line_Description = p.CreditLine != null ? p.CreditLine.line_description : null,
+                    Cuota_Name = p.CuotaTipo != null ? p.CuotaTipo.description : null,
                     Condicion_Name = p.condiciones != null ? p.condiciones.descripcion : null
                 }).Where(p => p.company == sociedadID)
                 .ToListAsync();
 
-            //var proveedores = prestamosTask.Result
-            //    .Select(p => p.c_proveedor)
-            //    .Where(c => !string.IsNullOrWhiteSpace(c))
-            //    .Distinct()
-            //    .ToList();
-            //var cuentasTask = _supplierBanckAccount.GetDataProveedor(1, string.Join(",", proveedores));
-            ////---Mapeo / enriquecido-- -
-            //var cuentasResp = cuentasTask.Result;
-
-            //var cuentas = (cuentasResp.IsCorrect && cuentasResp.Data != null)
-            //     ? cuentasResp.Data.Where(a => !string.IsNullOrWhiteSpace(a.CBP_UUID)).ToList() : null;
-                //: new List<SupplierAccountItemDTO>();
-
-            //var cuentasLookup = cuentas.ToLookup(a => a.CBP_UUID!);
-
             var lista = prestamosTask.Result.Select(p =>
             {
-                //var cuenta = cuentasLookup[p.c_proveedor ?? ""].FirstOrDefault();
-
+                
                 return new PrestamoDTO
                 {
                     id = p.id,
@@ -134,9 +118,6 @@ namespace Services.Implementation
                     monto_bruto = p.monto_bruto,
                     verified = p.verified,
                     dias_de_desembolso = p.dias_de_desembolso,
-                    //cbanK_ACCOUNT_ID = cuenta?.CBANK_ACCOUNT_ID,
-                    //CBANK_NAME = cuenta?.CBANK_NAME,
-                    //CBANK_NAT_CODE = cuenta?.CBANK_NAT_CODE
                 };
             }).ToList();
 
@@ -187,14 +168,13 @@ namespace Services.Implementation
                 {
                     var current = currentResp.Data?.FirstOrDefault();
 
-                    // Armamos un "stub" solo con la clave y los campos a actualizar
+                    
                     var stub = new SAPMaestroPrestamos
                     {
-                        id = current.id, // Clave primaria
+                        id = current.id, 
                         tasa = model.tasa,
                         dia_pago = model.dia_pago,
                         meses_gracia = model.meses_gracia,
-                     //   plazo = model.plazo,
                         commets = model.commets,
                         bank_id = model.bank_id,
                         creditline_id = model.creditline_id,
@@ -209,7 +189,6 @@ namespace Services.Implementation
                     if (model.tasa.HasValue) props.Add(x => x.tasa);
                     if (model.dia_pago.HasValue) props.Add(x => x.dia_pago);
                     if (model.meses_gracia.HasValue) props.Add(x => x.meses_gracia);
-                  //  if (model.plazo.HasValue) props.Add(x => x.plazo);
                     if (model.commets != null) props.Add(x => x.commets);
                     if (model.bank_id.HasValue) props.Add(x => x.bank_id);
                     if (model.creditline_id.HasValue) props.Add(x => x.creditline_id);

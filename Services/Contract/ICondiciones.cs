@@ -6,7 +6,7 @@ namespace Services.Contract
 {
     public interface ICondiciones : IGenericInterface<Condiciones> 
     {
-        Task<ResponseDTO<IEnumerable<CondicionesDTO>>> GetALL();
+        Task<ResponseDTO<IEnumerable<CondicionesDTO>>> GetALL(int company_id);
 
 
     }

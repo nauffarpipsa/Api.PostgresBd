@@ -1,23 +1,26 @@
-﻿namespace Services.Dtos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Services.Dtos
 {
     public class SAP_Maestro_BancosDto
     {
 
-        public int? BankID { get; set; }
-        public string? Bank_Name { get; set; }
-        public bool? Status { get; set; }
+        public int company_id { get; set; }
+        public int? bank_id { get; set; }
+        public string? bank_name { get; set; }
+        public bool? status { get; set; }
     }
 
     public class SAP_Maestro_BancosDTO
     {
-
-        public string? Bank_Name { get; set; }
-        public bool? Status { get; set; }
+        public int company_id { get; set; }
+        public string? bank_name { get; set; }
+        public bool? status { get; set; }
     }
     public class SAP_Maestro_BancosDTo
     {
 
-        public int? BankID { get; set; }
-        public string? Bank_Name { get; set; }
+        public int? bank_id { get; set; }
+        public string? bank_name { get; set; }
     }
 }

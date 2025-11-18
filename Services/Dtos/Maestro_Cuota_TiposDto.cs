@@ -4,19 +4,19 @@ namespace Services.Dtos
 {
     public class Maestro_Cuota_TiposDto
     {
+        public int company_id { get; set; }
         [Required(ErrorMessage = "La descripción es obligatoria")]
-        public string Description { get; set; } = string.Empty;
+        public string description { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        public bool Status { get; set; }
+        public bool status { get; set; }
     }
 
     public class Maestro_Cuota_TiposDTo
     {
-        public int ID { get; set; }
-        public string? Description { get; set; }
-
-        public bool Status { get; set; }
+        public int id { get; set; }
+        public string? description { get; set; }
+        public bool? status { get; set; }
     }
 
 

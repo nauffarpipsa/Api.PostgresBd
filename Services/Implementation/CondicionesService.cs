@@ -25,17 +25,18 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<ResponseDTO<IEnumerable<CondicionesDTO>>> GetALL()
+        public async Task<ResponseDTO<IEnumerable<CondicionesDTO>>> GetALL(int company_id)
         {
             ResponseDTO<IEnumerable<CondicionesDTO>> response = new ResponseDTO<IEnumerable<CondicionesDTO>>();
 
-            var condicion = _Condiciones.Get();
+            var condicion = _Condiciones.Get(c => c.company_id == company_id);
 
             var condicioneslist = condicion.Data?.ToList() ?? new List<Condiciones>();
 
             var condicionesDto = condicioneslist?.Select(c => new CondicionesDTO
             {
                 ID = c.ID,
+                company_id = c.company_id,
                 descripcion = c.descripcion
            
             }).ToList();
@@ -45,11 +46,6 @@ namespace Services.Implementation
             response.IsCorrect = true;
 
             return response;
-        }
-
-        public Task<ResponseDTO<IEnumerable<CondicionesDTO>>> GetAll()
-        {
-            throw new NotImplementedException();
         }
 
         public Task<ResponseDTO<IEnumerable<Condiciones>>> GetALl()

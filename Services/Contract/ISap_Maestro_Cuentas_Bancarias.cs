@@ -5,6 +5,6 @@ namespace Services.Contract
 {
     public interface ISap_Maestro_Cuentas_Bancarias 
     {
-        Task<ResponseDTO<IEnumerable<Sap_Maestro_Cuentas_BancariasDTo>>> GetALl(string idcompany);
+        Task<ResponseDTO<IEnumerable<Sap_Maestro_Cuentas_BancariasDTo>>> GetALl(int idcompany);
     }
 }

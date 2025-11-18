@@ -24,15 +24,20 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<ResponseDTO<IEnumerable<Maestro_Cuota_Tipos>>> GetALl()
+        public async Task<ResponseDTO<IEnumerable<Maestro_Cuota_Tipos>>> GetALl(int company_id)
         {
             ResponseDTO<IEnumerable<Maestro_Cuota_Tipos>> response = new ResponseDTO<IEnumerable<Maestro_Cuota_Tipos>>();
-            var cuotaTipo =  _cuotaTipo.Get();
+            var cuotaTipo =  _cuotaTipo.Get(c => c.company_id == company_id);
 
             response.Data = cuotaTipo.Data != null ? cuotaTipo.Data.ToList() : null;
             response.Message = cuotaTipo.Data?.Count() == 0 ? "Data list empty" : cuotaTipo.Message;
             response.IsCorrect = true;
             return  response;
+        }
+
+        public Task<ResponseDTO<IEnumerable<Maestro_Cuota_Tipos>>> GetALl()
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<ResponseDTO<Maestro_Cuota_Tipos>> Update(Maestro_Cuota_Tipos model)
@@ -41,20 +46,20 @@ namespace Services.Implementation
             try
             {
 
-                var currentResp = _cuotaTipo.Get(x => x.ID == model.ID);
+                var currentResp = _cuotaTipo.Get(x => x.id == model.id);
 
                 if (!currentResp.IsCorrect || currentResp.Data == null || !currentResp.Data.Any())
                 {
                     response.Data = null;
                     response.IsCorrect = false;
-                    response.Message = $"No se encontro un registro con este ID {model.ID}";
+                    response.Message = $"No se encontro un registro con este ID {model.id}";
                 }
                 else
                 {
                     var current = currentResp.Data?.FirstOrDefault();
-
-                    current.Description = model.Description;
-                    current.Status = model.Status;
+                    current.company_id = model.company_id;
+                    current.description = model.description;
+                    current.status = model.status;
 
                     var saved = await _cuotaTipo.Update(current);
 

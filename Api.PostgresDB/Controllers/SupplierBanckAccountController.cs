@@ -7,6 +7,7 @@ using Services.Dtos;
 namespace Api.PostgresDB.Controllers
 {
     [ApiController]
+    [Tags ("Supplier Bank Account")]
     [Route("api/[controller]/[action]")]
     public class SupplierBanckAccountController: ControllerBase
     {

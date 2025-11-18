@@ -23,19 +23,20 @@ namespace Services.Implementation
         {
             throw new NotImplementedException();
         }
-        public async Task<ResponseDTO<IEnumerable<Services.Dtos.SAP_Maestro_BancosDto>>> GetAll()
+        public async Task<ResponseDTO<IEnumerable<Services.Dtos.SAP_Maestro_BancosDto>>> GetAll(int company_id)
         {
             ResponseDTO<IEnumerable<Services.Dtos.SAP_Maestro_BancosDto>> response = new ResponseDTO<IEnumerable<Services.Dtos.SAP_Maestro_BancosDto>>();
-            var listmasterBanks = _masterBanks.Get();
+            var listmasterBanks = _masterBanks.Get(m => m.company_id == company_id);
 
             if (listmasterBanks?.Data != null) 
             {
                 response.Data = listmasterBanks.Data
                     .Select(x => new Services.Dtos.SAP_Maestro_BancosDto
                 {
-                        BankID = x.BankID,
-                        Bank_Name = x.Bank_Name,
-                        Status = x.Status
+                        company_id = x.company_id,
+                        bank_id = x.bank_id,
+                        bank_name = x.bank_name,
+                        status = x.status    
                 });
 
 
@@ -57,12 +58,12 @@ namespace Services.Implementation
 
             try
             {
-                var currentResp = _masterBanks.Get(x => x.BankID == model.BankID);
+                var currentResp = _masterBanks.Get(x => x.bank_id == model.bank_id);
 
                if (!currentResp.IsCorrect || currentResp.Data == null || !currentResp.Data.Any())
                 {
                     response.Data = null;
-                    response.Message = $"No se encontro ningun registro con este ID {model.BankID}";
+                    response.Message = $"No se encontro ningun registro con este ID {model.bank_id}";
                     response.IsCorrect = false;
                     return await System.Threading.Tasks.Task.FromResult(response);
                 }
@@ -70,8 +71,8 @@ namespace Services.Implementation
                 {
                     var current = currentResp.Data?.FirstOrDefault();
 
-                    current.Bank_Name = model.Bank_Name;
-                    current.Status = model.Status;
+                    current.bank_name = model.bank_name;
+                    current.status = model.status;
 
                     var saved = await _masterBanks.Update(current);
 

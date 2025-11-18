@@ -7,6 +7,7 @@ using Services.Dtos;
 namespace Api.PostgresDB.Controllers
 {
     [ApiController]
+    [Tags("Condiciones")]
     [Route("api/[controller]/[action]")]
     public class CondicionesController : ControllerBase
     {
@@ -21,6 +22,7 @@ namespace Api.PostgresDB.Controllers
         {
             var entity = new Condiciones
             { 
+                company_id = model.company_id,
                 descripcion = model.descripcion,
                 f_creacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             };
@@ -28,10 +30,10 @@ namespace Api.PostgresDB.Controllers
             return await _condiciones.Add(entity);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<ResponseDTO<IEnumerable<CondicionesDTO>>>> GetAll()
+        [HttpGet("{company_id:int}") ]
+        public async Task<ActionResult<ResponseDTO<IEnumerable<CondicionesDTO>>>> GetAll(int company_id)
         {
-            return await _condiciones.GetALL();
+            return await _condiciones.GetALL(company_id);
         }
     }
 }

@@ -3,8 +3,10 @@
     public class Maestro_Lineas_Credito
     {
         public int ID { get; set; }
-        public string? Line_Description { get; set; }
-        public int? BankID { get; set; }
-        public double? Credito { get; set; } 
+        public int company_id { get; set; }
+
+        public string? line_description { get; set; }
+        public int? bank_id { get; set; }
+        public double? credito { get; set; } 
     }
 }

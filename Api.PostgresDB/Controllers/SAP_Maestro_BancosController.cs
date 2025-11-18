@@ -7,6 +7,7 @@ using Services.Dtos;
 namespace Api.PostgresDB.Controllers
 {
     [ApiController]
+    [Tags("Bancos")]
     [Route("api/[controller]/[action]")]
     public class SAP_Maestro_BancosController : ControllerBase
     {
@@ -21,18 +22,19 @@ namespace Api.PostgresDB.Controllers
         {
 
             var model = new SAP_Maestro_Bancos
-            {
-                Bank_Name = entity.Bank_Name,
-                Status = entity.Status,
-                FechaCreacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            { 
+                company_id = entity.company_id,
+                bank_name = entity.bank_name,
+                status = entity.status,
+                fecha_creacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             };
             return await _masterBanks.Add(model);
         }
 
-        [HttpGet]
-        public async Task<ResponseDTO<IEnumerable<Services.Dtos.SAP_Maestro_BancosDto>>> GetAll()
+        [HttpGet("{company_id:int}")]
+        public async Task<ResponseDTO<IEnumerable<Services.Dtos.SAP_Maestro_BancosDto>>> GetAll(int company_id)
         {
-            return await _masterBanks.GetAll();
+            return await _masterBanks.GetAll(company_id);
         }
 
         [HttpPut ("{id:int}")]
@@ -40,13 +42,11 @@ namespace Api.PostgresDB.Controllers
         {
             var model = new SAP_Maestro_Bancos
             {
-                BankID = id,
-                Bank_Name = entity.Bank_Name,
-                Status = entity.Status
+                bank_id = id,
+                bank_account_name = entity.bank_name,
+                status = entity.status
             };
             return  await _masterBanks.Update(model);
-
-            //return updated.IsCorrect ? Ok() : BadRequest(updated.Message);
         }
 
 

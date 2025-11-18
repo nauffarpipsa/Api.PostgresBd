@@ -8,6 +8,7 @@ using Services.Dtos;
 namespace Api.PostgresDB.Controllers
 {
     [ApiController]
+    [Tags("Prestamos")]
     [Route("api/[controller]/[action]")]
     public class SAPMaestroPrestamosController : ControllerBase
     {

@@ -16,9 +16,9 @@ namespace Services.Implementation
             this._cuentasback = _cuentasback;
         }
 
-        public async Task<ResponseDTO<IEnumerable<Sap_Maestro_Cuentas_BancariasDTo>>> GetALl(string idcompany)
+        public async Task<ResponseDTO<IEnumerable<Sap_Maestro_Cuentas_BancariasDTo>>> GetALl(int company_id)
         {
-                var reques = await _cuentasback.GetAsync(x =>  x.IdCompany == idcompany );
+                var reques = await _cuentasback.GetAsync(x =>  x.IdCompany == company_id);
 
                 var response = new ResponseDTO<IEnumerable<Sap_Maestro_Cuentas_BancariasDTo>>
                 {
