@@ -8,6 +8,7 @@ namespace Services.Contract
      public interface ISAP_Maestro_Bancos : IGenericInterface<SAP_Maestro_Bancos>
     {
         Task<ResponseDTO<IEnumerable<Dtos.SAP_Maestro_BancosDto>>> GetAll(int company_id);
+        Task<ResponseDTO<IEnumerable<Services.Dtos.BankDTO>>> GetBankOdata(int bank_id);
 
     }
 }

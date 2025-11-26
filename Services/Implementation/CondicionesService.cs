@@ -36,9 +36,9 @@ namespace Services.Implementation
             var condicionesDto = condicioneslist?.Select(c => new CondicionesDTO
             {
                 ID = c.ID,
-                company_id = c.company_id,
-                descripcion = c.descripcion
-           
+                descripcion = c.descripcion,
+                status = c.status
+
             }).ToList();
 
             response.Data = condicionesDto;
@@ -53,9 +53,42 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<ResponseDTO<Condiciones>> Update(Condiciones model)
+        public async Task<ResponseDTO<Condiciones>> Update(Condiciones model)
         {
-            throw new NotImplementedException();
+             ResponseDTO<Condiciones> response = new ResponseDTO<Condiciones>();
+
+            try
+            {
+                var currentResp = _Condiciones.Get(x => x.ID == model.ID && x.company_id == model.company_id);
+
+                if (!currentResp.IsCorrect || currentResp.Data == null || !currentResp.Data.Any())
+                {
+                    response.Data = null;
+                    response.Message = $"No se encontro ningun registro con este ID {model.ID} pra la empresa {model.company_id}";
+                    response.IsCorrect = false;
+                    return await System.Threading.Tasks.Task.FromResult(response);
+                }
+                else
+                {
+                    var current = currentResp.Data?.FirstOrDefault();
+                      
+                    current.descripcion = model.descripcion;
+                    current.status = model.status;
+                    
+                    var saved = await _Condiciones.Update(current);
+
+                    response.Data = saved.Data;
+                    response.Message = saved.Message;
+                    response.IsCorrect = saved.IsCorrect;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Data = null;
+                response.Message = ex.Message;
+                response.IsCorrect = false;
+            }
+            return response;
         }
     }
 }

@@ -34,22 +34,26 @@ namespace Api.PostgresDB.Controllers
                 company_id = entity.company_id,
                 line_description = entity.line_description!.Trim(),
                 bank_id= entity.bank_id,
-                credito = entity.credito
+                credito = entity.credito,
+                status = entity.status,
+                f_creacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             };
 
            return await _maestroLineasCredito.Add(model);
         }
 
-       [HttpPut("{ID:int}")]
-        public async Task<ResponseDTO<Maestro_Lineas_Credito>> Update(int ID, [FromBody] Maestro_Lineas_CreditoDTO entity)
+       [HttpPut("{ID:int}/{company_id:int}")]
+        public async Task<ResponseDTO<Maestro_Lineas_Credito>> Update(int ID,int company_id, [FromBody] Maestro_Lineas_Creditodto entity)
         {
            var model = new Maestro_Lineas_Credito
            {
                ID = ID,
-               company_id = entity.company_id,
+               company_id = company_id,
                line_description = entity.line_description!.Trim(),
                bank_id = entity.bank_id,
-               credito = entity.credito
+               credito = entity.credito,
+               status = entity.status
+
            };
 
            return await _maestroLineasCredito.Update(model);

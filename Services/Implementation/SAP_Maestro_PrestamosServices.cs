@@ -54,6 +54,9 @@ namespace Services.Implementation
                     p.factura_id,
                     p.c_proveedor,
                     p.n_proveedor,
+                    p.code_bank_proveedor,
+                    p.name_bank_proveedor,
+                    p.number_bank_acount,
                     p.f_creacion,
                     p.f_invoice,
                     p.f_modificacion,
@@ -75,15 +78,16 @@ namespace Services.Implementation
                     p.verified,
                     p.dias_de_desembolso,
                     Bank_Name = p.Bank != null ? p.Bank.bank_name : null,
+                    SAP_Bank_id = p.Bank != null ? p.Bank.sap_bank_id : null,
                     Line_Description = p.CreditLine != null ? p.CreditLine.line_description : null,
                     Cuota_Name = p.CuotaTipo != null ? p.CuotaTipo.description : null,
-                    Condicion_Name = p.condiciones != null ? p.condiciones.descripcion : null
+                    Condicion_Name = p.condiciones != null ? p.condiciones.descripcion : null,
+                    metodo_redondeo = p.metodo_redondeo
                 }).Where(p => p.company == sociedadID)
                 .ToListAsync();
 
             var lista = prestamosTask.Result.Select(p =>
             {
-                
                 return new PrestamoDTO
                 {
                     id = p.id,
@@ -92,6 +96,9 @@ namespace Services.Implementation
                     factura_id = p.factura_id,
                     c_proveedor = p.c_proveedor,
                     n_proveedor = p.n_proveedor,
+                    code_bank_proveedor = p.code_bank_proveedor,
+                    name_bank_proveedor = p.name_bank_proveedor,
+                    number_bank_acount = p.number_bank_acount,
                     f_creacion = p.f_creacion,
                     f_invoice = p.f_invoice,
                     f_modificacion = p.f_modificacion,
@@ -106,6 +113,7 @@ namespace Services.Implementation
                     commets = p.commets,
                     bank_id = p.bank_id,
                     bank_name = p.Bank_Name,
+                    sap_bank_id = p.SAP_Bank_id,
                     creditline_id = p.creditline_id,
                     creditline_name = string.IsNullOrEmpty(p.Line_Description) ? null :
                                       string.IsNullOrEmpty(p.Bank_Name) ? p.Line_Description :
@@ -118,10 +126,9 @@ namespace Services.Implementation
                     monto_bruto = p.monto_bruto,
                     verified = p.verified,
                     dias_de_desembolso = p.dias_de_desembolso,
+                    metodo_redondeo = p.metodo_redondeo,
                 };
             }).ToList();
-
-           
 
             response.Data = lista;
             response.Message = lista.Any() ? "Data obtenida correctamente" : "No se encontraron registros";
@@ -135,28 +142,14 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<ResponseDTO<IEnumerable<SupplierAccountItemDTO>>> GetProveedorXOdata(string idProveedor)
-        {
-            var provedor = await _supplierBanckAccount.GetDataProveedor(idProveedor);
-
-            var response = new ResponseDTO<IEnumerable<SupplierAccountItemDTO>>
-            {
-                IsCorrect = provedor?.IsCorrect ?? false,
-                Message = provedor?.Message ?? "Sin respuesta del servicio."
-            };
-
-            var origen = provedor?.Data ?? Enumerable.Empty<SupplierBanckAccount>();
-            response.Data = origen.Select( Services.Dtos.SupplierAccountMapper.MapToDto).ToList(); 
-
-            return response;
-        } 
+       
 
         public async Task<ResponseDTO<SAPMaestroPrestamos>> Update(SAPMaestroPrestamos model)
         {
             ResponseDTO<SAPMaestroPrestamos> response = new ResponseDTO<SAPMaestroPrestamos>();
             try
             {
-                var currentResp =  _maestroPrestamos.Get(x => x.prestamo_id == model.prestamo_id);
+                var currentResp =  _maestroPrestamos.Get(x => x.prestamo_id == model.prestamo_id && x.company == model.company);
                 if(!currentResp.IsCorrect || currentResp.Data == null || !currentResp.Data.Any())
                 {
                     response.IsCorrect = false;
@@ -180,7 +173,8 @@ namespace Services.Implementation
                         creditline_id = model.creditline_id,
                         cuotatipo_id = model.cuotatipo_id,
                         condicion_id = model.condicion_id,
-                        dias_de_desembolso = model.dias_de_desembolso
+                        dias_de_desembolso = model.dias_de_desembolso,
+                        metodo_redondeo = model.metodo_redondeo
 
                     };
 
@@ -196,6 +190,7 @@ namespace Services.Implementation
                     if (model.condicion_id.HasValue) props.Add(x => x.condicion_id);
                     if (model.verified != current.verified) props.Add(x => x.verified);
                     if (model.dias_de_desembolso.HasValue) props.Add(x => x.dias_de_desembolso);
+                    if (model.metodo_redondeo.HasValue) props.Add(x => x.metodo_redondeo);
 
 
                     if (model.verified.HasValue)
@@ -229,11 +224,11 @@ namespace Services.Implementation
             ResponseDTO<Repository.Entidades.db_Externa.SAPMaestroPrestamos> response = new ResponseDTO<Repository.Entidades.db_Externa.SAPMaestroPrestamos>();
             try
             {
-                var currentResp = _maestroPrestamos.Get(x => x.prestamo_id == model.prestamo_id);
+                var currentResp = _maestroPrestamos.Get(x => x.prestamo_id == model.prestamo_id && x.company == model.company);
                 if (!currentResp.IsCorrect || currentResp.Data == null || !currentResp.Data.Any())
                 {
                     response.IsCorrect = false;
-                    response.Message = "ID Prestamo no encontrado";
+                    response.Message = $"No se encontro ningun registro con este ID {model.prestamo_id} para la company {model.company}";
                     response.Data = null;
                     return response;
                 }
@@ -241,15 +236,15 @@ namespace Services.Implementation
                 {
                     var current = currentResp.Data?.FirstOrDefault();
 
-                    // Armamos un "stub" solo con la clave y los campos a actualizar
+                   
                     var stub = new SAPMaestroPrestamos
                     {
-                        id = current.id, // Clave primaria
+                        id = current.id,
                         verified = model.verified,
 
                     };
 
-                    // 2) Solo marcar las props que vienen con valor (para no enviar NULL)
+                    
                     var props = new List<Expression<Func<SAPMaestroPrestamos, object>>>();
                   
                     if (model.verified != current.verified) props.Add(x => x.verified);

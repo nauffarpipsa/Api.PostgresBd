@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Repository.Entidades.db_Externa;
 using Repository.Entidades.DTO;
-using Repository.Entidades.Odatas;
 using Services.Contract;
 using Services.Dtos;
 
@@ -20,27 +19,29 @@ namespace Api.PostgresDB.Controllers
         }
 
         [HttpGet]
-        public async Task<ResponseDTO<IEnumerable<PrestamoDTO>>> GetALl([FromQuery] string sociedadID)
+        public async Task<ResponseDTO<IEnumerable<PrestamoDTO>>> GetALl([FromQuery] string company_id)
         {
-            return await _prestamos.GetAll(sociedadID);
+            return await _prestamos.GetAll(company_id);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(string prestamo_id, [FromBody] SAPMaestroPrestamosDto enty)
+        public async Task<IActionResult> Update(string prestamo_id,string company_id, [FromBody] SAPMaestroPrestamosDto enty)
         {
             var model = new SAPMaestroPrestamos
             {
                 prestamo_id = prestamo_id,
+                company = company_id,
                 tasa = enty.tasa,
                 dia_pago = enty.dia_pago,
                 meses_gracia = enty.meses_gracia,
-                //    plazo = enty.plazo,
                 commets = enty.commets,
                 bank_id = enty.bank_id,
                 creditline_id = enty.creditline_id,
                 cuotatipo_id = enty.cuotatipo_id,
                 condicion_id = enty.condicion_id,
-                dias_de_desembolso = enty.dias_de_desembolso
+                dias_de_desembolso = enty.dias_de_desembolso,
+                metodo_redondeo = enty.metodo_redondeo,
+
 
             };
             var updated = await _prestamos.Update(model);
@@ -53,11 +54,12 @@ namespace Api.PostgresDB.Controllers
 
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateVerified(string prestamo_id, [FromBody] PrestamosVerifiedDto enty)
+        public async Task<IActionResult> UpdateVerified(string prestamo_id, string company_id, [FromBody] PrestamosVerifiedDto enty)
         {
             var model = new SAPMaestroPrestamos
             {
                 prestamo_id = prestamo_id,
+                company = company_id,
                 verified = enty.verified == true ? true : false
             };
             var updated = await _prestamos.UpdateVerified(model);
@@ -67,13 +69,6 @@ namespace Api.PostgresDB.Controllers
             else
                 return BadRequest(updated.Message);
 
-
-        }
-
-        [HttpGet]
-        public async Task<ResponseDTO<IEnumerable<SupplierAccountItemDTO>>> GetSupplierBackAccount([FromQuery] string Id_Proveedor)
-        {
-            return await _prestamos.GetProveedorXOdata(Id_Proveedor);
 
         }
     }

@@ -2,6 +2,7 @@
 using Repository.Entidades.db_Externa;
 using Repository.Entidades.DTO;
 using Services.Contract;
+using Services.Dtos;
 
 namespace Services.Implementation
 {
@@ -24,15 +25,32 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<ResponseDTO<IEnumerable<Maestro_Cuota_Tipos>>> GetALl(int company_id)
+        public async Task<ResponseDTO<IEnumerable<Maestro_Cuota_TiposDTO>>> GetALl(int company_id)
         {
-            ResponseDTO<IEnumerable<Maestro_Cuota_Tipos>> response = new ResponseDTO<IEnumerable<Maestro_Cuota_Tipos>>();
+            ResponseDTO<IEnumerable<Maestro_Cuota_TiposDTO>> response = new ResponseDTO<IEnumerable<Maestro_Cuota_TiposDTO>>();
             var cuotaTipo =  _cuotaTipo.Get(c => c.company_id == company_id);
 
-            response.Data = cuotaTipo.Data != null ? cuotaTipo.Data.ToList() : null;
-            response.Message = cuotaTipo.Data?.Count() == 0 ? "Data list empty" : cuotaTipo.Message;
-            response.IsCorrect = true;
-            return  response;
+            if (cuotaTipo != null)
+            {
+             response.Data = cuotaTipo.Data?.Select(c => new Maestro_Cuota_TiposDTO
+             {
+                 id = c.id,
+                 company_id = c.company_id,
+                 description = c.description,
+                 status = c.status,
+
+                
+             });
+                response.Message = cuotaTipo.Message;
+                response.IsCorrect = true;
+            }else
+            {
+                response.Data = null;
+                response.Message = "data list Emty";
+                response.IsCorrect = true;
+                return response;
+            }
+            return response;
         }
 
         public Task<ResponseDTO<IEnumerable<Maestro_Cuota_Tipos>>> GetALl()
@@ -57,7 +75,7 @@ namespace Services.Implementation
                 else
                 {
                     var current = currentResp.Data?.FirstOrDefault();
-                    current.company_id = model.company_id;
+                    
                     current.description = model.description;
                     current.status = model.status;
 

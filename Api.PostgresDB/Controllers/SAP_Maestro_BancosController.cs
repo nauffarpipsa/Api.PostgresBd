@@ -20,13 +20,13 @@ namespace Api.PostgresDB.Controllers
         [HttpPost]
         public async Task<ResponseDTO<SAP_Maestro_Bancos>> AddBank([FromBody] SAP_Maestro_BancosDTO entity)
         {
-
             var model = new SAP_Maestro_Bancos
             { 
                 company_id = entity.company_id,
                 bank_name = entity.bank_name,
+                sap_bank_id = entity.sap_bank_id, 
                 status = entity.status,
-                fecha_creacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                f_creacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             };
             return await _masterBanks.Add(model);
         }
@@ -37,18 +37,25 @@ namespace Api.PostgresDB.Controllers
             return await _masterBanks.GetAll(company_id);
         }
 
-        [HttpPut ("{id:int}")]
-        public async Task<ResponseDTO<SAP_Maestro_Bancos>> UpdateBank(int id, [FromBody] SAP_Maestro_BancosDTO entity)
+        [HttpPut ("{id:int}/{company_id:int}")]
+        public async Task<ResponseDTO<SAP_Maestro_Bancos>> UpdateBank(int id, int company_id ,[FromBody] SAP_Maestro_Bancosdto entity)
         {
             var model = new SAP_Maestro_Bancos
             {
                 bank_id = id,
-                bank_account_name = entity.bank_name,
+                company_id = company_id,
+                bank_name = entity.bank_name,
+                sap_bank_id = entity.sap_bank_id,
                 status = entity.status
             };
             return  await _masterBanks.Update(model);
         }
 
+        // [HttpGet("{bank_id:int}")]
+        //public async Task<ResponseDTO<IEnumerable<Services.Dtos.BankDTO>>> GetBanks(int bank_id)
+        //{
+        //    return await _masterBanks.GetBankOdata( bank_id);
+        //}
 
     }
 }

@@ -17,17 +17,11 @@ namespace Api.PostgresDB.Controllers
             _supplierBanckAccount = supplierBanckAccount;
         }
 
-        [HttpGet]
-        public async Task<ResponseDTO<IEnumerable<SupplierBanckAccount>>> GetSupplierBackAccount([FromQuery] string proveedoresID)
+        [HttpGet("{company_id:int}")]
+        public async Task<ResponseDTO<IEnumerable<SupplierBanckAccount>>> GetSupplierBackAccount(string company_id)
         {
 
-            return await _supplierBanckAccount.GetDataProveedor(1, proveedoresID);
-        }
-
-        [HttpGet] 
-        public async Task<ResponseDTO<IEnumerable<SupplierBanckAccount>>> GetSupplierBackAccountSinTask([FromQuery] string proveedoresID)
-        {
-            return await _supplierBanckAccount.GetDataProveedor(proveedoresID);
+            return await _supplierBanckAccount.GetAllSupplierBankAccount(company_id);
         }
     }
 }

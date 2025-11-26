@@ -163,9 +163,8 @@ namespace Repository.Implementation
             var response = new ResponseDTO<T>();
             try
             {
-                // --- Evitar "another instance with the same key" ---
                 var set = _external_context.Set<T>();
-                var idProp = typeof(T).GetProperty("id"); // asumiendo PK = "id"
+                var idProp = typeof(T).GetProperty("id"); 
                 if (idProp != null)
                 {
                     var idVal = idProp.GetValue(model);
@@ -177,7 +176,6 @@ namespace Repository.Implementation
                     if (local != null)
                         _external_context.Entry(local).State = EntityState.Detached;
                 }
-                // ----------------------------------------------------
 
                 var entry = _external_context.Attach(model);
 

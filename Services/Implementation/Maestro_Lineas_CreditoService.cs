@@ -48,7 +48,8 @@ namespace Services.Implementation
                 line_description = l.line_description,
                 bank_id = l.bank_id,
                 bank_name = bancosDict.TryGetValue(l.bank_id, out var name) ? name : null,
-                credito = l.credito
+                credito = l.credito,
+                status = l.status
             }).ToList();
 
             response.Data = lienasDto;
@@ -64,7 +65,7 @@ namespace Services.Implementation
             ResponseDTO<Maestro_Lineas_Credito> response = new  ResponseDTO<Maestro_Lineas_Credito>();
             try
             {
-                var currentResp = _maestro_Lineas_Credito.Get(x => x.ID == model.ID);
+                var currentResp = _maestro_Lineas_Credito.Get(x => x.ID == model.ID && x.company_id == model.company_id);
 
                 if (currentResp.Data != null) 
                 {
@@ -74,6 +75,7 @@ namespace Services.Implementation
                     current.line_description = model.line_description;
                     current.bank_id = model.bank_id;
                     current.credito = model.credito;
+                    current.status = model.status;
 
                     var saved = await _maestro_Lineas_Credito.Update(current);
 

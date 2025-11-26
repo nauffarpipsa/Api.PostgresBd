@@ -46,7 +46,7 @@ namespace Repository.Entidades.db
         public string? CurrencyCode { get; set; }
 
         [Column("id_company")]
-        public int IdCompany { get; set; }
+        public string IdCompany { get; set; }
 
         [Column("bank_standard_id")]
         public string? BankStandardId { get; set; }
@@ -61,7 +61,7 @@ namespace Repository.Entidades.db
         public string? PaymentMediumFormatCode1 { get; set; }
 
         [Column("description")]
-        public string? Description { get; set; }
+        public string? Descripcion { get; set; }
 
         [Column("internal_id1")]
         public string? InternalId1 { get; set; }
