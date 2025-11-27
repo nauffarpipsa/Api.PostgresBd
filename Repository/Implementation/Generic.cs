@@ -107,9 +107,25 @@ namespace Repository.Implementation
             }
         }
 
-        public Task<Entidades.DTO.ResponseDTO<IEnumerable<T>>> Empty(IEnumerable<T> model)
+        public async Task<Entidades.DTO.ResponseDTO<IEnumerable<T>>> Empty(IEnumerable<T> model)
         {
-            throw new NotImplementedException();
+            ResponseDTO<IEnumerable<T>> response = new ResponseDTO<IEnumerable<T>>();
+            try
+            {
+                _external_context.Set<T>().RemoveRange(model);
+                await _external_context.SaveChangesAsync();
+                response.Data = model;
+                response.Message = "Data list deleted successfully";
+                response.IsCorrect = true;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.Data = null;
+                response.Message = ex.Message;
+                response.IsCorrect = false;
+                return response;
+            }
         }
 
         public async Task<Entidades.DTO.ResponseDTO<T>> Update(T model)

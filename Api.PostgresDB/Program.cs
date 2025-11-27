@@ -38,7 +38,7 @@ builder.Services.AddDbContext<applicationDbContext>(options =>
 
 
 
-var app = builder.Build(); // Construir la app
+var app = builder.Build(); 
 
 
 //if (app.Environment.IsDevelopment())

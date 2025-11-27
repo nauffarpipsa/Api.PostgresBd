@@ -32,14 +32,20 @@ namespace Services.Implementation
             return _maestroPrestamos.Add(model);
         }
 
-        public Task<ResponseDTO<IEnumerable<SAPMaestroPrestamos>>> Get()
+        public async Task<ResponseDTO<IEnumerable<SAPMaestroPrestamos>>> Get()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
-        public Task<ResponseDTO<SAPMaestroPrestamos>> Get(SAPMaestroPrestamos model)
+        public async Task<ResponseDTO<SAPMaestroPrestamos>> Get(SAPMaestroPrestamos model)
         {
-            throw new NotImplementedException();
+             var result = await _maestroPrestamos.GetAsync(x => x.id == model.id);
+             return new ResponseDTO<SAPMaestroPrestamos>
+             {
+                 Data = result.Data?.FirstOrDefault(),
+                 Message = result.Message,
+                 IsCorrect = result.IsCorrect
+             };
         }
         public async Task<ResponseDTO<IEnumerable<PrestamoDTO>>> GetAll(string sociedadID)
         {
@@ -137,9 +143,10 @@ namespace Services.Implementation
 
         }
 
-        public Task<ResponseDTO<IEnumerable<SAPMaestroPrestamos>>> GetALl()
+        public async Task<ResponseDTO<IEnumerable<SAPMaestroPrestamos>>> GetALl()
         {
-            throw new NotImplementedException();
+          //  return await _maestroPrestamos.GetAsync();
+          return null;
         }
 
        
