@@ -5,6 +5,6 @@ namespace Services.Contract
 {
     public  interface ICreditoCatalogo 
     {
-      Task<ResponseDTO<CatalogoCreditoDto>> Get();
+      Task<ResponseDTO<CatalogoCreditoDto>> Get(int company_id);
     }
 }

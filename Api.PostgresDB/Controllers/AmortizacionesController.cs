@@ -39,12 +39,6 @@ namespace Api.PostgresDB.Controllers
             if (!result.IsCorrect) return StatusCode(500, result.Message);
             return Created(nameof(Post), new { inserted = result.Data?.Count() ?? 0 });
         }
-    
 
-        [HttpGet]
-        public async Task<ResponseDTO<IEnumerable<Maestro_Amortizaciones>>> GeAll([FromQuery] string pestamo_number ,bool valid , bool paid )
-        {
-            return await _maestroAmortizaciones.GetALl(pestamo_number, valid, paid);
-        }
     }
 }

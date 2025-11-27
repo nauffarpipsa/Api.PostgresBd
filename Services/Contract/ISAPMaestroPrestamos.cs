@@ -8,7 +8,6 @@ namespace Services.Contract
     {
         Task<ResponseDTO<IEnumerable<PrestamoDTO>>> GetAll(string sociedadID);
         Task<ResponseDTO<SAPMaestroPrestamos>> UpdateVerified(SAPMaestroPrestamos model);
-        Task<ResponseDTO<IEnumerable<SupplierAccountItemDTO>>> GetProveedorXOdata( string IdPorveedor);
 
 
 

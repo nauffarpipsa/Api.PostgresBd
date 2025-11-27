@@ -6,6 +6,7 @@ using Services.Contract;
 namespace Api.PostgresDB.Controllers
 {
     [ApiController]
+    [Tags("Historial de Tasas")]
     [Route("api/[controller]/[action]")]
     public class HistoryRatesController : ControllerBase
     {

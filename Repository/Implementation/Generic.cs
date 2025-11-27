@@ -107,9 +107,25 @@ namespace Repository.Implementation
             }
         }
 
-        public Task<Entidades.DTO.ResponseDTO<IEnumerable<T>>> Empty(IEnumerable<T> model)
+        public async Task<Entidades.DTO.ResponseDTO<IEnumerable<T>>> Empty(IEnumerable<T> model)
         {
-            throw new NotImplementedException();
+            ResponseDTO<IEnumerable<T>> response = new ResponseDTO<IEnumerable<T>>();
+            try
+            {
+                _external_context.Set<T>().RemoveRange(model);
+                await _external_context.SaveChangesAsync();
+                response.Data = model;
+                response.Message = "Data list deleted successfully";
+                response.IsCorrect = true;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.Data = null;
+                response.Message = ex.Message;
+                response.IsCorrect = false;
+                return response;
+            }
         }
 
         public async Task<Entidades.DTO.ResponseDTO<T>> Update(T model)
@@ -163,9 +179,8 @@ namespace Repository.Implementation
             var response = new ResponseDTO<T>();
             try
             {
-                // --- Evitar "another instance with the same key" ---
                 var set = _external_context.Set<T>();
-                var idProp = typeof(T).GetProperty("id"); // asumiendo PK = "id"
+                var idProp = typeof(T).GetProperty("id"); 
                 if (idProp != null)
                 {
                     var idVal = idProp.GetValue(model);
@@ -177,7 +192,6 @@ namespace Repository.Implementation
                     if (local != null)
                         _external_context.Entry(local).State = EntityState.Detached;
                 }
-                // ----------------------------------------------------
 
                 var entry = _external_context.Attach(model);
 

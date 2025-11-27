@@ -31,9 +31,15 @@ namespace Analysis.Services.Implementation
             return response;
         }
 
-        public Task<ResponseDTO<DbTask>> Get(DbTask model)
+        public async Task<ResponseDTO<DbTask>> Get(DbTask model)
         {
-            throw new NotImplementedException();
+             var result = await _task.GetAsync(x => x.Id == model.Id);
+             return new ResponseDTO<DbTask>
+             {
+                 Data = result.Data?.FirstOrDefault(),
+                 Message = result.Message,
+                 IsCorrect = result.IsCorrect
+             };
         }
 
         public async Task<ResponseDTO<IEnumerable<Repository.Entidades.db_Externa.Task>>> GetAll(string companyCode)
@@ -47,9 +53,9 @@ namespace Analysis.Services.Implementation
             return response;
         }
 
-        public Task<ResponseDTO<IEnumerable<DbTask>>> GetALl()
+        public async Task<ResponseDTO<IEnumerable<DbTask>>> GetALl()
         {
-            throw new NotImplementedException();
+           return null;
         }
 
         public async Task<ResponseDTO<Repository.Entidades.db_Externa.Task>> Update(Repository.Entidades.db_Externa.Task model)

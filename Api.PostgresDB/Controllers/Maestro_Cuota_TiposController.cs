@@ -8,6 +8,7 @@ namespace Api.PostgresDB.Controllers
 {
 
     [ApiController]
+    [Tags("Tipos de Cuotas")]
     [Route("api/[controller]/[action]")]
     public class Maestro_Cuota_TiposController : ControllerBase
     {
@@ -16,36 +17,35 @@ namespace Api.PostgresDB.Controllers
         {
             _maestro_Cuota_Tipos = maestro_Cuota_Tipos;
         }
-        [HttpGet]
-        public async Task<ActionResult<ResponseDTO<IEnumerable<Maestro_Cuota_Tipos>>>> GetAll()
+        [HttpGet("{company_id:int}")]
+        public async Task<ActionResult<ResponseDTO<IEnumerable<Maestro_Cuota_TiposDTO>>>> GetAll(int company_id)
         {
-            return await _maestro_Cuota_Tipos.GetALl();
+            return await _maestro_Cuota_Tipos.GetALl(company_id);
         }
         [HttpPost]
-        public async Task<ActionResult<ResponseDTO<Maestro_Cuota_Tipos>>> Add([FromBody] Maestro_Cuota_TiposDto entity)
+        public async Task<ActionResult<ResponseDTO<Maestro_Cuota_Tipos>>> Add([FromBody] Maestro_Cuota_TiposDtoAdd entity)
         {
             var model = new Maestro_Cuota_Tipos
             {
-                Description = entity.Description!.Trim(),
-                Status = entity.Status,
-                Creadate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                company_id = entity.company_id,
+                description = entity.description!.Trim(),
+                status = entity.status,
+                f_creacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             };
             return await _maestro_Cuota_Tipos.Add(model);
         }
 
 
-        [HttpPut("{id:int}")]
-        public async Task<ResponseDTO<Maestro_Cuota_Tipos>> Update(int id, [FromBody] Maestro_Cuota_TiposDto entity)
+        [HttpPut("{id:int}/{company_id:int}")]
+        public async Task<ResponseDTO<Maestro_Cuota_Tipos>> Update(int id,int company_id, [FromBody] Maestro_Cuota_TiposDto entity)
         {
             var model = new Maestro_Cuota_Tipos
             {
-                ID = id,
-                Description = entity.Description!.Trim(),
-                Status = entity.Status
+                id = id,
+                description = entity.description!.Trim(),
+                status = entity.status
             };
            return await _maestro_Cuota_Tipos.Update(model);
-
-            //return updated.IsCorrect ? Ok() : BadRequest(updated.Message);
         }
     }
 }

@@ -6,6 +6,6 @@ namespace Services.Contract
 {
     public interface IMaestro_Lineas_Credito : IGenericInterface<Maestro_Lineas_Credito>
     {
-        Task<ResponseDTO<IEnumerable<Maestro_Lineas_CreditoDto>>> GetAll();
+        Task<ResponseDTO<IEnumerable<Maestro_Lineas_CreditoDto>>> GetAll(int company_id);
     }
 }

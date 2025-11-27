@@ -1,12 +1,11 @@
 ﻿
 using Analysis.Services.Contract;
+using Repository.Contract;
+using Repository.Entidades.db_Externa;
 using Repository.Entidades.DTO;
 using Repository.Entidades.Odatas;
 using Services.Contract;
-using Services.Dtos;
 using Services.Utilities;
-using System.Diagnostics.Contracts;
-using System.Windows.Input;
 
 namespace Services.Implementation
 {
@@ -14,11 +13,13 @@ namespace Services.Implementation
     {
         private readonly IRequestOData _odata;
         private readonly ITask _task;
+        private readonly IGeneric<ODataLink> _oDataLink;
 
-        public SupplierBanckAccountServices(IRequestOData oData, ITask task )
+        public SupplierBanckAccountServices(IRequestOData oData, ITask task, IGeneric<ODataLink> oDataLink )
         {
             _odata = oData;
             _task = task;
+            _oDataLink = oDataLink;
         }
 
         public async Task<ResponseDTO<IEnumerable<SupplierBanckAccount>>> GetAsync(int taskId)
@@ -105,111 +106,31 @@ namespace Services.Implementation
                 throw;
             }
         }
-        public async Task<ResponseDTO<IEnumerable<SupplierBanckAccount>>> GetDataProveedor(int taskId , string proveedores)
+       
+         public async Task<ResponseDTO<IEnumerable<SupplierBanckAccount>>> GetAllSupplierBankAccount(string company_id)
         {
             ResponseDTO<IEnumerable<SupplierBanckAccount>> response = new ResponseDTO<IEnumerable<SupplierBanckAccount>>();
             response.Data = new List<SupplierBanckAccount>();
 
-            try
-            {
-                var task = await _task.Get(taskId);
+            var odatalink = _oDataLink.Get(o => o.id == 1);
 
-                if (task.Data != null)
-                {
-                    if (task.Data.active)
-                    {
-
-                        string linkGeneric = string.Empty;
-
-                        if (proveedores is null)
-                        {
-                            linkGeneric = $"(CCREATION_DT  ge datetime'{DateTime.Now.Subtract(TimeSpan.FromMinutes(task.Data.minute_range)).Date.ToString("yyyy-MM-dd")}T00:00:00')";
-                        }
-                        else
-                        {
-
-                            linkGeneric = $"(CBP_UUID  eq '{proveedores}')";
-                            foreach (var item in proveedores)
-                            {
-                                linkGeneric += $"(CBP_UUID eq '{item}') or ";
-                            }
-
-                            linkGeneric = linkGeneric.Substring(0, linkGeneric.Length - 5);
-                            linkGeneric += ")";
-                        }
-
-                        var result = await _odata.RequestODataAsync(
-                            task.Data.Id,
-                            new Dictionary<string, object> {
-                                    { "Link", linkGeneric }});
-
-                        if (result != null)
-                        {
-                            if (result.Data?.Count > 0)
-                            {
-                                var list = (IEnumerable<SupplierBanckAccount>)SupplierBanckAccountHelper.ToList(result.Data);
-
-
-                                response.Data = list;
-                                response.Message = result.Message;
-                                response.IsCorrect = result.IsCorrect;
-
-                            }
-                            else
-                            {
-                                response.Message = "Porveedor list Empty";
-                                response.IsCorrect = true;
-                            }
-                        }
-                        else
-                        {
-                            response.Data = result.Data;
-                            response.Message = result.Message;
-                            response.IsCorrect = result.IsCorrect;
-                        }
-                          
-                    }
-                    else
-                    {
-                        response.Data = null;
-                        response.IsCorrect = false;
-                        response.Message = $"Task {taskId} is not active";
-                    }
-                }
-                else
-                {
-                    response.Data = null;
-                    response.IsCorrect = false;
-                    response.Message = $"Task {taskId} not found";
-                }
-                return response;
-
-            }
-            catch (Exception)
+            if (odatalink.Data is not null)
             {
 
-                throw;
-            }
-        }
-
-        public async Task<ResponseDTO<IEnumerable<SupplierBanckAccount>>> GetDataProveedor(string proveedores)
-        {
-            ResponseDTO<IEnumerable<SupplierBanckAccount>> response = new ResponseDTO<IEnumerable<SupplierBanckAccount>>();
-            response.Data = new List<SupplierBanckAccount>();
-
-            try
-            {
-                var Odata = "https://my431112.businessbydesign.cloud.sap/sap/byd/odata/ana_businessanalytics_analytics.svc/RPBUPSPP_Q0001QueryResults?$select=CCREATION_DT,CBANK_NAT_CODE,CSTATUS,TSTATUS,CBANK_NAME,CBANK_ACCOUNT_ID,CBP_UUID,TBP_UUID&$filter=(CBP_UUID eq '{0}')&$top=999999&$format=json&sap-language=ES";
+                var odataLink = odatalink.Data
+                  .Select(x => x.link)
+                   .FirstOrDefault();
 
                 var result = await _odata.RequestODataAsyncOdata(
-                          Odata,
-                          new Dictionary<string, object> {
-                                    { "Proveedor", proveedores }});
-
+                          odataLink,
+                         new Dictionary<string, object> {
+                                        { "Company", company_id }});
                 if (result != null)
                 {
                     if (result.Data?.Count > 0)
                     {
+                         var entities = AccountBankHelper.ToList(result.Data);
+
                         var list = (IEnumerable<SupplierBanckAccount>)SupplierBanckAccountHelper.ToList(result.Data);
 
 
@@ -230,15 +151,9 @@ namespace Services.Implementation
                     response.Message = result.Message;
                     response.IsCorrect = result.IsCorrect;
                 }
-
             }
-            catch (Exception)
-            {
 
-                throw;
-            }
             return response;
         }
-
     }
 }
