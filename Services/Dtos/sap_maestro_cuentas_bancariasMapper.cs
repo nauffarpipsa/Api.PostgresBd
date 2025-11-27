@@ -8,8 +8,8 @@ namespace Services.Dtos
         {
             return new Sap_Maestro_Cuentas_BancariasDTo
             {
-                BankAccountId = b.BankAccountId,
-                Description = b.Description
+                InternalID = b.InternalId,
+                Description = b.Descripcion,
             };
         }
     }

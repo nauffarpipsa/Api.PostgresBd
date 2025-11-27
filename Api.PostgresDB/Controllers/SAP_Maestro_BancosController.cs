@@ -7,6 +7,7 @@ using Services.Dtos;
 namespace Api.PostgresDB.Controllers
 {
     [ApiController]
+    [Tags("Bancos")]
     [Route("api/[controller]/[action]")]
     public class SAP_Maestro_BancosController : ControllerBase
     {
@@ -19,36 +20,42 @@ namespace Api.PostgresDB.Controllers
         [HttpPost]
         public async Task<ResponseDTO<SAP_Maestro_Bancos>> AddBank([FromBody] SAP_Maestro_BancosDTO entity)
         {
-
             var model = new SAP_Maestro_Bancos
-            {
-                Bank_Name = entity.Bank_Name,
-                Status = entity.Status,
-                FechaCreacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            { 
+                company_id = entity.company_id,
+                bank_name = entity.bank_name,
+                sap_bank_id = entity.sap_bank_id, 
+                status = entity.status,
+                f_creacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             };
             return await _masterBanks.Add(model);
         }
 
-        [HttpGet]
-        public async Task<ResponseDTO<IEnumerable<Services.Dtos.SAP_Maestro_BancosDto>>> GetAll()
+        [HttpGet("{company_id:int}")]
+        public async Task<ResponseDTO<IEnumerable<Services.Dtos.SAP_Maestro_BancosDto>>> GetAll(int company_id)
         {
-            return await _masterBanks.GetAll();
+            return await _masterBanks.GetAll(company_id);
         }
 
-        [HttpPut ("{id:int}")]
-        public async Task<ResponseDTO<SAP_Maestro_Bancos>> UpdateBank(int id, [FromBody] SAP_Maestro_BancosDTO entity)
+        [HttpPut ("{id:int}/{company_id:int}")]
+        public async Task<ResponseDTO<SAP_Maestro_Bancos>> UpdateBank(int id, int company_id ,[FromBody] SAP_Maestro_Bancosdto entity)
         {
             var model = new SAP_Maestro_Bancos
             {
-                BankID = id,
-                Bank_Name = entity.Bank_Name,
-                Status = entity.Status
+                bank_id = id,
+                company_id = company_id,
+                bank_name = entity.bank_name,
+                sap_bank_id = entity.sap_bank_id,
+                status = entity.status
             };
             return  await _masterBanks.Update(model);
-
-            //return updated.IsCorrect ? Ok() : BadRequest(updated.Message);
         }
 
+        // [HttpGet("{bank_id:int}")]
+        //public async Task<ResponseDTO<IEnumerable<Services.Dtos.BankDTO>>> GetBanks(int bank_id)
+        //{
+        //    return await _masterBanks.GetBankOdata( bank_id);
+        //}
 
     }
 }

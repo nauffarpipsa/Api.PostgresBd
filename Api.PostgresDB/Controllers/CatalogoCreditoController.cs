@@ -7,6 +7,7 @@ namespace Api.PostgresDB.Controllers
 {
 
     [ApiController]
+    [Tags("Catalago de Creditos")]
     [Route("api/[controller]/[action]")]
     public class CatalogoCreditoController : ControllerBase
     {
@@ -15,10 +16,10 @@ namespace Api.PostgresDB.Controllers
         {
             _catalogoCredito = catalogoCredito;
         }
-        [HttpGet]
-        public async Task<ResponseDTO<CatalogoCreditoDto>> GetAll()
+        [HttpGet("{company_id:int}")]
+        public async Task<ResponseDTO<CatalogoCreditoDto>> GetAll(int company_id)
         {
-          return await _catalogoCredito.Get();
+          return await _catalogoCredito.Get(company_id);
         }
     }
 }

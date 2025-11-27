@@ -8,6 +8,9 @@
         public string? factura_id { get;set; }        
         public string? c_proveedor { get;set; }
         public string? n_proveedor { get; set; }
+        public string? code_bank_proveedor { get; set; }
+        public string? name_bank_proveedor { get; set; }
+        public string? number_bank_acount { get; set; }
         public DateTime? f_creacion { get; set; } = null;
         public DateTime? f_invoice { get; set; } = null;
         public DateTime? f_modificacion { get; set; } = null;
@@ -34,6 +37,7 @@
         public decimal? monto_bruto { get; set; }
         public bool? verified { get; set; }
         public int? dias_de_desembolso { get; set; }
+        public int? metodo_redondeo { get; set; }
 
     }
 }

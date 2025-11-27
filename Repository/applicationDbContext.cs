@@ -53,15 +53,13 @@ namespace Repository
             modelBuilder.Entity<SAPMaestroPrestamos>()
                 .HasOne(p => p.condiciones)
                 .WithMany()
-                .HasForeignKey(p => p.id)
+                .HasForeignKey(p => p.condicion_id)
                 .IsRequired(false);
 
-            modelBuilder.Entity<SAPMaestroPrestamos>()
-               .HasOne(p => p.condiciones)
-               .WithMany()
-               .HasForeignKey(p => p.id)
-               .IsRequired(false);
-
+            modelBuilder.Entity<ODataLink>().HasData(
+                new ODataLink {id = 1 ,description = "Get Supplier Banck Account",link = "https://my431112.businessbydesign.cloud.sap/sap/byd/odata/ana_businessanalytics_analytics.svc/RPBUPSPP_Q0001QueryResults?$select=CCREATION_DT,CBANK_NAT_CODE,CSTATUS,TSTATUS,CBANK_NAME,CBANK_ACCOUNT_ID,CBP_UUID,TBP_UUID&$top=999999&$format=json&sap-language=ES",body = null ,active = true },
+                new ODataLink {id = 2 ,description = "Get Bank Account", link = "https://my427722.businessbydesign.cloud.sap/sap/byd/odata/cust/v1/zcuentasbancarias/ZCuentasBancariasRootCollection?select=BankAccountID,Descripcion&$filter=(IDCompany eq '1000000')and(BankAccountID eq '200009748748' or BankAccountID  eq '112010166696' or BankAccountID  eq '20111013429' or BankAccountID  eq '20111014336' or BankAccountID  eq '200009748748' or BankAccountID  eq '20111013429' or BankAccountID  eq '20111013429')&$top=999999&$format=json&sap-language=ES", body = null ,active = true }
+            );
         }
     }
 }

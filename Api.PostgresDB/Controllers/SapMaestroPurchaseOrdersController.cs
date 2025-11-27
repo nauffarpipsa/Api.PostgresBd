@@ -6,6 +6,7 @@ using Services.Dtos;
 namespace Api.PostgresDB.Controllers
 {
     [ApiController]
+    [Tags("Ordenes de Compras")]
     [Route("api/[controller]/[action]")]
     public class SapMaestroPurchaseOrdersController : ControllerBase
     {

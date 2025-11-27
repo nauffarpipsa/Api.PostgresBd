@@ -1,5 +1,4 @@
-﻿
-using Repository.Contract;
+﻿using Repository.Contract;
 using Repository.Entidades.db_Externa;
 using Repository.Entidades.DTO;
 using Services.Contract;
@@ -30,15 +29,21 @@ namespace Services.Implementation
             return response;
         }
 
-        public Task<ResponseDTO<ODataLink>> Get(ODataLink model)
+        public async Task<ResponseDTO<ODataLink>> Get(ODataLink model)
         {
-            throw new NotImplementedException();
+             var result = await _odata.GetAsync(x => x.id == model.id);
+             return new ResponseDTO<ODataLink>
+             {
+                 Data = result.Data?.FirstOrDefault(),
+                 Message = result.Message,
+                 IsCorrect = result.IsCorrect
+             };
         }
 
 
-        public Task<ResponseDTO<IEnumerable<ODataLink>>> GetALl()
+        public async Task<ResponseDTO<IEnumerable<ODataLink>>> GetALl()
         {
-            throw new NotImplementedException();
+          return null;
         }
 
         public async Task<ResponseDTO<IEnumerable<ODataLink>>> GetAll()

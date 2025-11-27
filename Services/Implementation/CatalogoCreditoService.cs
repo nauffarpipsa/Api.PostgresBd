@@ -21,40 +21,40 @@ namespace Services.Implementation
             _Condiciones = Condiciones;
         }
 
-        public async Task<ResponseDTO<CatalogoCreditoDto>> Get()
+        public async Task<ResponseDTO<CatalogoCreditoDto>> Get(int company_id)
         {
             var response = new ResponseDTO<CatalogoCreditoDto>();
 
-            var bancosResp =  _masterBanks.Get();
-            var lineasResp =  _maestro_Lineas_Credito.Get();
-            var cuotaTiposResp =  _maestro_Cuota_Tipos.Get();
-            var condicionesResp =  _Condiciones.Get();
+            var bancosResp =  _masterBanks.Get(m => m.company_id == company_id && m.status == true);
+            var lineasResp =  _maestro_Lineas_Credito.Get(l => l.company_id == company_id && l.status == true);
+            var cuotaTiposResp =  _maestro_Cuota_Tipos.Get(c => c.company_id == company_id && c.status == true);
+            var condicionesResp =  _Condiciones.Get(cd => cd.company_id == company_id && cd.status == true);
 
            
-
             try
             { 
-                var bancos = bancosResp.Data?.Where(b => b.Status == true).ToList() ?? new List<SAP_Maestro_Bancos>();
+                var bancos = bancosResp.Data?.ToList() ?? new List<SAP_Maestro_Bancos>();
                 var lineas = lineasResp.Data?.ToList() ?? new List<Maestro_Lineas_Credito>();
-                var cuotaTipos = cuotaTiposResp.Data?.Where(l => l.Status == true).ToList() ?? new List<Maestro_Cuota_Tipos>();
+                var cuotaTipos = cuotaTiposResp.Data?.ToList() ?? new List<Maestro_Cuota_Tipos>();
                 var condiciones = condicionesResp.Data?.ToList() ?? new List<Condiciones>();
 
-                var bancosDict = bancos?.ToDictionary(b => b.BankID, b => b.Bank_Name);
+                var bancosDict = bancos?.ToDictionary(b => b.bank_id, b => b.bank_name);
 
                 var lienasDto = lineas?.Select(l => new Maestro_Lineas_CreditoDTo
                 {
                     ID = l.ID,
-                    Line_Description = string.Concat(l.Line_Description + "/" + (bancosDict.TryGetValue(l.BankID, out var name) ? name : null)),
-                    Credito = l.Credito,
+                    bank_id = l.bank_id,
+                    Line_Description = string.Concat(l.line_description + "/" + (bancosDict.TryGetValue(l.bank_id, out var name) ? name : null)),
+                    Credito = l.credito,
 
                 }).ToList();
 
                 var dto = new CatalogoCreditoDto
                 {
-                    Bancos = bancos.Select(b => new SAP_Maestro_BancosDTo { BankID = b.BankID, Bank_Name = b.Bank_Name, }),
+                    Bancos = bancos.Select(b => new SAP_Maestro_BancosDTo { bank_id = b.bank_id, bank_name = b.bank_name, }),
                     LineasCredito = lienasDto,
-                    TiposCuota = cuotaTipos.Select(c => new Maestro_Cuota_TiposDTo { ID = c.ID, Description = c.Description }),
-                    condiciones = condiciones.Select(c => new CondicionesDTO { ID = c.ID, descripcion = c.descripcion })
+                    TiposCuota = cuotaTipos.Select(c => new Maestro_Cuota_Tiposdto { id = c.id, description = c.description}),
+                    condiciones = condiciones.Select(c => new Condicionesdto { ID = c.ID, descripcion = c.descripcion })
 
                 };
                 response.Data = dto;

@@ -33,48 +33,24 @@ builder.Services.AddScoped<IMaestro_Amortizaciones, Maestro_AmortizacionesServic
 builder.Services.AddScoped<ISap_Maestro_Cuentas_Bancarias, SapMaestroCuentasBancariasServices>();
 
 //DbContext
-builder.Configuration
-    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
-    .AddEnvironmentVariables()
-    .AddKeyPerFile("/run/secrets", optional: true);
-
-// Lee y valida la cadena
-var conn = builder.Configuration.GetConnectionString("Postgres");
-if (string.IsNullOrWhiteSpace(conn))
-    conn = builder.Configuration["ConnectionStrings:Postgres"];
-if (string.IsNullOrWhiteSpace(conn))
-    throw new InvalidOperationException("ConnectionStrings:Postgres no está configurada (env/appsettings).");
-
-
-// ✅ Usa la cadena directamente
 builder.Services.AddDbContext<applicationDbContext>(options =>
-    options.UseNpgsql(conn));
-
-//Cors
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("Api.Postgres", app =>
-    {
-        app.AllowAnyOrigin()
-        .AllowAnyHeader()
-        .AllowAnyMethod();
-    });
-});
- 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-app.UseSwagger();
-app.UseSwaggerUI();
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
 
 
-//app.UseRateLimiter();
+
+var app = builder.Build(); 
+
+
+//if (app.Environment.IsDevelopment())
+//{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+//}
+
 app.UseHttpsRedirection();
 
-app.UseCors("Api.Postgres");
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.Run(); 

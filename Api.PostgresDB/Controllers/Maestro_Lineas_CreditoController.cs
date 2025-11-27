@@ -8,6 +8,7 @@ namespace Api.PostgresDB.Controllers
 {
 
     [ApiController]
+    [Tags("Linieas de Creditos")]
     [Route("api/[controller]/[action]")]
     public class Maestro_Lineas_CreditoController : ControllerBase
     {
@@ -19,10 +20,10 @@ namespace Api.PostgresDB.Controllers
             _maestroLineasCredito = maestroLineasCredito;
         }
 
-        [HttpGet]
-        public async Task<ResponseDTO<IEnumerable<Maestro_Lineas_CreditoDto>>> GetAll()
+        [HttpGet("{company_id:int}")]
+        public async Task<ResponseDTO<IEnumerable<Maestro_Lineas_CreditoDto>>> GetAll(int company_id)
         {
-          return await _maestroLineasCredito.GetAll();
+          return await _maestroLineasCredito.GetAll(company_id);
         }
 
         [HttpPost]
@@ -30,35 +31,33 @@ namespace Api.PostgresDB.Controllers
         {
             var model = new Maestro_Lineas_Credito
             {
-                Line_Description = entity.Line_Description!.Trim(),
-                BankID= entity.BankID,
-                Credito = entity.Credito
+                company_id = entity.company_id,
+                line_description = entity.line_description!.Trim(),
+                bank_id= entity.bank_id,
+                credito = entity.credito,
+                status = entity.status,
+                f_creacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             };
 
            return await _maestroLineasCredito.Add(model);
         }
 
-       [HttpPut("{ID:int}")]
-        public async Task<ResponseDTO<Maestro_Lineas_Credito>> Update(int ID, [FromBody] Maestro_Lineas_CreditoDTO entity)
+       [HttpPut("{ID:int}/{company_id:int}")]
+        public async Task<ResponseDTO<Maestro_Lineas_Credito>> Update(int ID,int company_id, [FromBody] Maestro_Lineas_Creditodto entity)
         {
+           var model = new Maestro_Lineas_Credito
+           {
+               ID = ID,
+               company_id = company_id,
+               line_description = entity.line_description!.Trim(),
+               bank_id = entity.bank_id,
+               credito = entity.credito,
+               status = entity.status
 
-            //if (!string.IsNullOrEmpty(entity.Line_Description))
-            //{
-                var model = new Maestro_Lineas_Credito
-                {
-                    ID = ID,
-                    Line_Description = entity.Line_Description!.Trim(),
-                    BankID = entity.BankID,
-                    Credito = entity.Credito
-                };
+           };
 
-                return await _maestroLineasCredito.Update(model);
-                //return updated.IsCorrect ? Ok() : BadRequest(updated.Message);
-            //}
-            //else
-            //{
-            //    return BadRequest($"EL campo {nameof(entity.Line_Description)} está null");
-            //}
+           return await _maestroLineasCredito.Update(model);
+             
         }
 
     }
