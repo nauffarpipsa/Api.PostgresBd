@@ -1,6 +1,7 @@
 ﻿using Analysis.Services.Contract;
 using Analysis.Services.Implementation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Repository;
 using Repository.Contract;
 using Repository.Implementation;
@@ -11,7 +12,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// Configurar Swagger para mostrar el entorno actual
+builder.Services.AddSwaggerGen(c =>
+{
+    var useTestDb = builder.Configuration.GetValue<bool>("DatabaseConfig:UseTestDatabase");
+    string envLabel = useTestDb ? "TEST (Nauffar)" : "PROD (Nauffar)";
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = $"Api.PostgresDB - {envLabel}",
+        Version = "v1",
+        Description = $"Actualmente conectado a base de datos de: **{envLabel}**"
+    });
+});
 
 
 // Add services 
@@ -33,18 +46,32 @@ builder.Services.AddScoped<IMaestro_Amortizaciones, Maestro_AmortizacionesServic
 builder.Services.AddScoped<ISap_Maestro_Cuentas_Bancarias, SapMaestroCuentasBancariasServices>();
 
 //DbContext
-builder.Services.AddDbContext<applicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
+builder.Services.AddDbContext<applicationDbContext>((serviceProvider, options) =>
+{
+    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+    bool useTestDb = configuration.GetValue<bool>("DatabaseConfig:UseTestDatabase");
+    string connectionStringKey = useTestDb ? "Postgres_Test" : "Postgres_Prod";
+    string? connectionString = configuration.GetConnectionString(connectionStringKey);
+
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        throw new InvalidOperationException($"La cadena de conexión '{connectionStringKey}' no se encontró.");
+    }
+
+    // Opcional: Log para saber a qué BD se está conectando (útil para debug)
+    Console.WriteLine($"[INFO] Conectando a Base de Datos: {(useTestDb ? "PRUEBA" : "PRODUCCIÓN")} ({connectionStringKey})");
+
+    options.UseNpgsql(connectionString);
+});
 
 
-
-var app = builder.Build(); 
+var app = builder.Build();
 
 
 //if (app.Environment.IsDevelopment())
 //{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 //}
 
 app.UseHttpsRedirection();
@@ -53,4 +80,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run(); 
+app.Run();

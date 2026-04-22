@@ -7,9 +7,11 @@ services:
       dockerfile: Dockerfile
     container_name: apipostgresdb
     ports:
-      - "8030:8030"   # host:container
+      - "8030:8030" # host:container
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: "http://+:8030"
-      ConnectionStrings__Postgres: "Host=192.168.10.80;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
+      ConnectionStrings__Postgres_Prod: "Host=192.168.10.80;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
+      ConnectionStrings__Postgres_Test: "Host=192.168.10.80;Port=5433;Database=Nauffar;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
+      DatabaseConfig__UseTestDatabase: ${USE_TEST_DB:-false}
     restart: unless-stopped
